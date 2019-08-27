@@ -1,3 +1,4 @@
+//Template page
 'use strict'
 const Sequelize = require('sequelize');
 const db = require('../config/database');

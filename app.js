@@ -1,8 +1,11 @@
-const express = require('express');
-const app = express();
-// const bodyParser = require('body-parser');
+const express = require('express'); //look up require express
+const app = express(); // look up 
+const bodyParser = require('body-parser');
 // const pug = require('pug');
-const path = require('path');
+
+//--------------------------------------------------
+//words to look up 
+//bodyparser, extends layout
 
 const routes = require('./routes/index');
 const books = require('./routes/books');
@@ -22,12 +25,15 @@ const books = require('./routes/books');
 // app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static('public'));
+//using express and making it static in the public folder. Static allows the user to see the css
 
 app.use('/', routes);
+//routing to homepage
 app.use('/books', books);
+//redirecting to /books page without using the word redirect
 
 // app.use(function(req, res, next){
 //   const err = new Error('Not Found');

@@ -17,7 +17,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-
 // GET /books/new - Shows the create book form
 router.get('/new', (req, res) =>
   res.render('books/new-book', {
@@ -58,7 +57,6 @@ router.get('/:id/update', async (req, res, next) => {
   } catch (err) {
     res.render('error', err);
   }
-
 });
 
 //POST /books/:id/delete - Deletes book from database.
@@ -84,20 +82,21 @@ router.post('/:id/update', function (req, res, next) {
       if (book) {
         return book.update(req.body);
       }
-
-
     }).then(function (article) {
       res.redirect("/");
     }).catch(function (err) {
       if (err.name === "SequelizeValidationError") {
-
+        let book = Books.build(req.body);
         res.render("books/update-book", {
-
+          book: book,
+          errors: err.errors
         });
       } else {
         throw err;
       }
-    })
+    }).catch(function (err) {
+      res.render('error', err)
+    });
 });
 
 module.exports = router;
